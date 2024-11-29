@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <!-- Bootstrap CSS link (adjust as needed) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom CSS styles (optional) -->
+    <style>
+        /* Add custom styles here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-4">Prediction Result</h1>
+        
+        <!-- Display selected parameters -->
+        <div class="mb-3">
+            <h4>Selected Parameters:</h4>
+            <p><strong>District:</strong> {{ district }}</p>
+            <p><strong>Ward:</strong> {{ ward }}</p>
+            <p><strong>Selected Date:</strong> {{ selected_date }}</p>
+        </div>
+
+        <!-- Display prediction results here -->
+        <div>
+            <h4>Prediction Results:</h4>
+            <p>This section will display the predicted values based on the selected parameters.</p>
+            <!-- Example: -->
+            <p><strong>Predicted Consumption:</strong> 100 kWh</p>
+            <p><strong>Predicted Total:</strong> 150 kWh</p>
+            <p><strong>Predicted Left:</strong> 50 kWh</p>
+        </div>
+
+        <!-- Button to go back to home or upload page -->
+        <div class="mt-4">
+            <a href="/" class="btn btn-primary">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (adjust as needed) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

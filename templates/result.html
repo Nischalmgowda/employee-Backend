@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+
+{% block title %}Result{% endblock %}
+
+{% block content %}
+    <h1 class="mt-5 mb-4">Electricity Consumption Results</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="resultTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="graphs-tab" data-toggle="tab" href="#graphs" role="tab" aria-controls="graphs" aria-selected="true">Graphs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="tables-tab" data-toggle="tab" href="#tables" role="tab" aria-controls="tables" aria-selected="false">Tables</a>
+                </li>
+                {% if 'ckm.csv' in filename %}
+                <li class="nav-item">
+                    <a class="nav-link" id="prediction-tab" data-toggle="tab" href="#prediction" role="tab" aria-controls="prediction" aria-selected="false">Prediction</a>
+                </li>
+                {% endif %}
+            </ul>
+            <div class="tab-content" id="resultTabContent">
+                <div class="tab-pane fade show active" id="graphs" role="tabpanel" aria-labelledby="graphs-tab">
+                    {% for year, paths in graph_paths.items() %}
+                        <h2>Year: {{ year }}</h2>
+                        {% for path in paths %}
+                            <img src="{{ url_for('uploaded_file', filename=path) }}" alt="Graph for {{ year }}" class="img-fluid mb-4">
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <div class="tab-pane fade" id="tables" role="tabpanel" aria-labelledby="tables-tab">
+                    {% for year, months in month_tables.items() %}
+                        <h2>Year: {{ year }}</h2>
+                        {% for month, table in months.items() %}
+                            <h3>Month: {{ month }}</h3>
+                            <div class="table-responsive">
+                                {{ table|safe }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                {% if 'ckm.csv' in filename %}
+                <div class="tab-pane fade" id="prediction" role="tabpanel" aria-labelledby="prediction-tab">
+                    <form method="POST" action="{{ url_for('predict') }}">
+                        <input type="hidden" name="filename" value="{{ filename }}">
+                        <div class="form-group">
+                            <label for="district">District</label>
+                            <select class="form-control" id="district" name="district">
+                                <option value="Chikmaglore">Chikmaglore</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="ward">Ward</label>
+                            <select class="form-control" id="ward" name="ward">
+                                <option value="Koppa">Koppa</option>
+                                <option value="Sringeri">Sringeri</option>
+                                <option value="Tarikere">Tarikere</option>
+                                <option value="Nrpura">Nrpura</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date">Date</label>
+                            <input type="text" class="form-control" id="datepicker" name="date" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Predict</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+            <a href="{{ url_for('upload_file') }}" class="btn btn-secondary mt-4">Back to Home</a>
+        </div>
+    </div>
+{% endblock %}
